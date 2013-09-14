@@ -1,0 +1,23 @@
+{
+    "name": "patrickrose/boardgamegeek",
+    "description": "",
+    "authors": [
+        {
+            "name": "PatrickRose",
+            "email": "pjr011025@googlemail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Patrickrose\\Boardgamegeek": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
