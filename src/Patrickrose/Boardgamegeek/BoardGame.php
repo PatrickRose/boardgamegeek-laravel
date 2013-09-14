@@ -16,10 +16,8 @@ class BoardGame extends Eloquent {
 
   /**
    * Gets a game from the api. If you already have it saved
-   * in your database, it'll grab that and update it. Note
-   * that this will always query the BGG api, and thus will
-   * be much slower than a find(). Use that unless you *have* to have
-   * the latest infomation, or want to be sure of getting a game.
+   * in your database, it'll grab that, otherwise it'll get
+   * the details from BGG.
    * @param  int  $id The id of the game you're looking for
    * @return BoardGame The game it found
    */
