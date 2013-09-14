@@ -32,6 +32,19 @@ class BoardGame extends Eloquent {
     return $game;
   }
 
+  public static function searchBGGByName($title) {
+    $url = "http://www.boardgamegeek.com/xmlapi/search?search=" . $title;
+    if (!($xml = simplexml_load_file($url))) {
+      throw new BGGException("Failed to load details from the BGG API - maybe BGG is down?");
+    }
+    $ids = []
+    foreach($xml->boardgame as $item) {
+      $ids[] = ['id' => $item['objectid'],
+		'name' => BoardGame::getNameFromXML($item)];
+    }
+    return $ids;
+  }
+
   /**
    * Gets a game from the api. Note that this will query the BGG
    * api, and thus will be fairly slow.
@@ -93,8 +106,7 @@ class BoardGame extends Eloquent {
       throw new BGGException("Failed to load details from the BGG API - maybe BGG is down?");
     }
     $ids = []
-    foreach($xml->item as $item)
-    {
+    foreach($xml->item as $item) {
       $ids[] = $item['objectid']);
     }
     return $ids;
@@ -113,7 +125,7 @@ class BoardGame extends Eloquent {
                 'age'          => $xml->age,
                 'name'         => BoardGame::getNameFromXML($xml),
                 'description'  => $xml->description];
-    $game = new BoardGame($details);
+    $game = BoardGame::create($details);
   }
 
   /**
@@ -138,7 +150,7 @@ class BoardGame extends Eloquent {
   public function reload() {
     try {
       $game = BoardGame::searchBGG($this->id);
-      $this = $this->replicate($game);
+      $this = $game->replicate($game);
     }
     catch (BGGException $e) {
     }
