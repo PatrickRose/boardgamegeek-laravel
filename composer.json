@@ -1,6 +1,6 @@
 {
     "name": "patrickrose/boardgamegeek",
-    "description": "",
+    "description": "Allows a nice an easy way to load data from BoardGameGeek",
     "authors": [
         {
             "name": "PatrickRose",
@@ -9,14 +9,11 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
+	"illuminate/support": "~4"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-0": {
-            "Patrickrose\\Boardgamegeek": "src/"
+            "PatrickRose\\BoardGameGeek": "src/"
         }
     },
     "minimum-stability": "dev"
