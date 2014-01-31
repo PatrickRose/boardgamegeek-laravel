@@ -2,6 +2,7 @@
 
 use PatrickRose\BoardGameGeek\BoardGameGeekAPI;
 use PatrickRose\BoardGameGeek\BoardGame;
+use PatrickRose\BoardGameGeek\XMLReader;
 
 class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase {
 
@@ -9,8 +10,11 @@ class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase {
 
     $this->gameID = 13291;
     $this->otherGame = 13297;
-    $this->api = new BoardGameGeekApi;
 
+  }
+
+  public function tearDown() {
+    Mockery::close();
   }
 
   protected function getTestAttributes() {
@@ -25,8 +29,20 @@ class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase {
     );
   }
 
+  protected function getCollection() {
+    return array(
+      '6249' => 'Alhambra',
+      '137408' => 'Amerigo',
+      '124742' => 'Android: Netrunner',
+      '133500' => 'Android: Netrunner - Cyber Exodus',
+      '132005' => 'Android: Netrunner - Trace Amount',
+      '130806' => 'Android: Netrunner - What Lies Ahead',
+    );
+  }
+
   protected function getTestGame() {
     $game = new BoardGame;
+    $game->id = '13291';
     $game->yearpublished = '2004';
     $game->minplayers = '2';
     $game->maxplayers = '8';
@@ -39,6 +55,7 @@ class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase {
 
   protected function getOtherGame() {
     $game = new BoardGame;
+    $game->id = '13297';
     $game->yearpublished = '2004';
     $game->minplayers = '2';
     $game->maxplayers = '5';
@@ -50,25 +67,69 @@ class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase {
   }
 
   public function testGetBoardGame() {
-    $game = $this->api->getBoardGame($this->gameID);
-    $this->assertEquals($game, $this->getTestGame());
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/13291?versions=1')->andReturn(simplexml_load_file('tests/13291.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $game = $api->getBoardGame($this->gameID);
+    $this->assertEquals($this->getTestGame(), $game);
   }
 
   public function testGetMultipleGames() {
-    $games = $this->api->getBoardGame(array($this->gameID, $this->otherGame));
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/13291,13297?versions=1')->andReturn(simplexml_load_file('tests/13291,13297.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $games = $api->getBoardGame(array($this->gameID, $this->otherGame));
     $this->assertEquals(array($this->getTestGame(), $this->getOtherGame()), $games);
   }
 
-  public function testGetNonexistantGame() {
-    $game = $this->api->getBoardGame(132911111111);
-    $this->assertEquals(null, $game);
-    $game = $this->api->getBoardGame(132911111111, 132911111112);
+  public function testGetNonExistantGame() {
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/132911111111?versions=1')->andReturn(simplexml_load_file('tests/132911111111.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $game = $api->getBoardGame(132911111111);
     $this->assertEquals(null, $game);
   }
 
+  public function testGetMultipleNonExistantGames() {
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/132911111111,132911111112?versions=1')->andReturn(simplexml_load_file('tests/132911111111,132911111112.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $games = $api->getBoardGame(array(132911111111, 132911111112));
+    $this->assertEquals(array(), $games);
+  }
+
   public function testSearchBoardGameGeek() {
-    $games = $this->api->search('citadels');
-    $this->assertEquals(array('478', '13291'), $games);
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels')->andReturn(simplexml_load_file('tests/search.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $games = $api->search('citadels');
+    $this->assertEquals(array('478' => 'Citadels', '13291' => 'Citadels:  The Dark City'), $games);
+  }
+
+  public function testSearchAndGet() {
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels')->andReturn(simplexml_load_file('tests/search.xml'));
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/478,13291?versions=1')->andReturn(simplexml_load_file('tests/478,13291.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $games = $api->searchAndGet('citadels');
+    $this->assertEquals($api->getBoardGame(array(478,13291)), $games);
+  }
+
+  public function testGetUsersCollection() {
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed')->andReturn(simplexml_load_file('tests/drugcrazed.xml'));
+    $api = new BoardGameGeekApi($mock);
+    $games = $api->collection('drugcrazed');
+    $this->assertEquals($this->getCollection(), $games);
+  }
+
+  public function testGetUsersCollectionAsGames() {
+    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed')->andReturn(simplexml_load_file('tests/drugcrazed.xml'));
+    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/6249,137408,124742,133500,132005,130806?versions=1')->andReturn(simplexml_load_file('tests/13291,13297.xml'));
+    $api = new BoardGameGeekAPI($mock);
+    $games = $api->getCollectionAsGames('drugcrazed');
+    $this->assertEquals(array($this->getTestGame(), $this->getOtherGame()), $games);
   }
 
 }

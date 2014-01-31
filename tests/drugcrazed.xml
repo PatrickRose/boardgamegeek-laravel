@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<items totalitems="66" termsofuse="http://boardgamegeek.com/xmlapi/termsofuse">	
+		<item objecttype="thing" objectid="6249" subtype="boardgame" collid="20182580">
+	<name sortindex="1">Alhambra</name>
+		<yearpublished>2003</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1502118.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1502118_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="6" playingtime="60" numowned="15178">
+				<rating value="N/A">			<usersrated value="14374"/>			<average value="7.04937"/>
+			<bayesaverage value="6.96956"/>			<stddev value="1.21525"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-08-27 13:37:38"/>
+	<numplays>0</numplays>							</item>
+		<item objecttype="thing" objectid="6249" subtype="boardgame" collid="20182600">
+	<name sortindex="1">Alhambra</name>
+		<yearpublished>2003</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1502118.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1502118_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="6" playingtime="60" numowned="15178">
+				<rating value="N/A">			<usersrated value="14374"/>			<average value="7.04937"/>
+			<bayesaverage value="6.96956"/>			<stddev value="1.21525"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-08-27 13:41:42"/>
+	<numplays>0</numplays>							</item>
+		<item objecttype="thing" objectid="137408" subtype="boardgame" collid="20182586">
+	<name sortindex="1">Amerigo</name>
+		<yearpublished>2013</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1824151.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1824151_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="4" playingtime="90" numowned="1520">
+				<rating value="N/A">			<usersrated value="1098"/>			<average value="7.58888"/>
+			<bayesaverage value="6.8787"/>			<stddev value="1.3273"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-08-27 13:39:12"/>
+	<numplays>0</numplays>							</item>
+		<item objecttype="thing" objectid="124742" subtype="boardgame" collid="17869745">
+	<name sortindex="1">Android: Netrunner</name>
+		<yearpublished>2012</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1324609.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1324609_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="2" playingtime="45" numowned="14500">
+				<rating value="7">			<usersrated value="8891"/>			<average value="8.34652"/>
+			<bayesaverage value="8.09274"/>			<stddev value="1.58322"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-01-02 20:01:10"/>
+	<numplays>0</numplays>							</item>
+		<item objecttype="thing" objectid="133500" subtype="boardgame" collid="18841574">
+	<name sortindex="1">Android: Netrunner - Cyber Exodus</name>
+		<yearpublished>2013</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1473689.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1473689_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="2" playingtime="60" numowned="3526">
+				<rating value="N/A">			<usersrated value="567"/>			<average value="8.50432"/>
+			<bayesaverage value="6.98333"/>			<stddev value="1.22469"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-04-05 14:36:15"/>
+	<numplays>0</numplays>							</item>
+		<item objecttype="thing" objectid="132005" subtype="boardgame" collid="17994571">
+	<name sortindex="1">Android: Netrunner - Trace Amount</name>
+		<yearpublished>2013</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1473690.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1473690_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="2" playingtime="60" numowned="3819">
+				<rating value="N/A">			<usersrated value="621"/>			<average value="8.43977"/>
+			<bayesaverage value="7.01878"/>			<stddev value="1.20253"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-01-12 08:19:43"/>
+	<numplays>0</numplays>							</item>
+		<item objecttype="thing" objectid="130806" subtype="boardgame" collid="17853880">
+	<name sortindex="1">Android: Netrunner - What Lies Ahead</name>
+		<yearpublished>2012</yearpublished>			<image>http://cf.geekdo-images.com/images/pic1534826.jpg</image>
+		<thumbnail>http://cf.geekdo-images.com/images/pic1534826_t.jpg</thumbnail>
+		<stats minplayers="2" maxplayers="2" playingtime="60" numowned="4225">
+				<rating value="N/A">			<usersrated value="711"/>			<average value="8.41508"/>
+			<bayesaverage value="7.1054"/>			<stddev value="1.2372"/>
+			<median value="0"/>		</rating>
+			</stats>	<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2013-01-01 16:52:28"/>
+	<numplays>0</numplays>							</item>
+</items>

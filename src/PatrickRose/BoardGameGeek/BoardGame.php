@@ -22,6 +22,7 @@ class BoardGame {
   public static function createFromXML($boardGame) {
     $attributes = array();
 
+    $attributes['id'] = $boardGame['objectid']->__toString();
     $attributes['yearpublished'] = $boardGame->yearpublished->__toString();
     $attributes['minplayers'] = $boardGame->minplayers->__toString();
     $attributes['maxplayers'] = $boardGame->maxplayers->__toString();
