@@ -12,11 +12,11 @@ class BoardGameGeekAPI {
     $this->xml = $xmlreader;
   }
 
-  public function getBoardGame($term) {
+  public function getBoardGame($term, $parameters = array()) {
 
     if(is_array($term)) {
 
-      $url = self::GET_GAME . implode($term, ',') . '?versions=1';
+      $url = self::GET_GAME . implode($term, ',') . '?versions=1' . static::buildQueryString($parameters, '&');
       $xml = $this->xml->parse($url);
       if ($xml->boardgame->error) {
         return array();
@@ -33,7 +33,7 @@ class BoardGameGeekAPI {
     }
     else {
 
-      $url = self::GET_GAME . $term . '?versions=1';
+      $url = self::GET_GAME . $term . '?versions=1' . static::buildQueryString($parameters, '&');
       $xml = $this->xml->parse($url);
 
       if ($xml->boardgame->error) {
@@ -46,8 +46,8 @@ class BoardGameGeekAPI {
 
   }
 
-  public function search($searchTerm) {
-    $url = self::SEARCH_GAMES . $searchTerm;
+  public function search($searchTerm, $parameters = array()) {
+    $url = self::SEARCH_GAMES . $searchTerm . static::buildQueryString($parameters, '&');
     $xml = $this->xml->parse($url);
     $games = array();
 
@@ -58,13 +58,13 @@ class BoardGameGeekAPI {
     return $games;
   }
 
-  public function searchAndGet($searchTerm) {
-    $games = $this->search($searchTerm);
-    return $this->getBoardGame(array_keys($games));
+  public function searchAndGet($searchTerm, $searchParams = array(), $getParams = array()) {
+    $games = $this->search($searchTerm, $searchParams);
+    return $this->getBoardGame(array_keys($games), $getParams);
   }
 
-  public function collection($username) {
-    $url = self::USER_COLLECTION . $username;
+  public function collection($username, $parameters = array()) {
+    $url = self::USER_COLLECTION . $username . static::buildQueryString($parameters);
     $xml = $this->xml->parse($url);
     $games = array();
 
@@ -76,9 +76,17 @@ class BoardGameGeekAPI {
 
   }
 
-  public function getCollectionAsGames($username) {
-    $games = $this->collection($username);
-    return $this->getBoardGame(array_keys($games));
+  public function getCollectionAsGames($username, $userParams = array(), $getParams = array()) {
+    $games = $this->collection($username, $userParams);
+    return $this->getBoardGame(array_keys($games), $getParams);
+  }
+
+  public static function buildQueryString($parameters, $start = '?') {
+    $string = empty($parameters) ? '' : $start;
+    foreach($parameters as $param => $value) {
+      $string .= $param . '=' . $value . '&';
+    }
+    return $string;
   }
 
 }
