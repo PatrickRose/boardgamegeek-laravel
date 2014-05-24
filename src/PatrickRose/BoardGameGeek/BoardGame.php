@@ -35,7 +35,8 @@ class BoardGame {
     }
     $attributes['description'] = $boardGame->description->__toString();
     $attributes['image'] = $boardGame->image->__toString();
-
+    $attributes['thumbnail'] = $boardGame->thumbnail->__toString();
+    
     return new BoardGame($attributes);
   }
 
