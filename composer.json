@@ -1,6 +1,7 @@
 {
     "name": "patrickrose/boardgamegeek",
     "description": "Allows a nice an easy way to load data from BoardGameGeek",
+    "license": "MIT",
     "authors": [
         {
             "name": "PatrickRose",
