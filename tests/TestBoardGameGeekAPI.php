@@ -1,173 +1,224 @@
 <?php
 
-use PatrickRose\BoardGameGeek\BoardGameGeekAPI;
 use PatrickRose\BoardGameGeek\BoardGame;
-use PatrickRose\BoardGameGeek\XMLReader;
+use PatrickRose\BoardGameGeek\BoardGameGeekAPI;
 
-class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase {
+class TestBoardGameGeekAPI extends PHPUnit_Framework_TestCase
+{
 
-  protected function setUp() {
+    protected function setUp()
+    {
 
-    $this->gameID = 13291;
-    $this->otherGame = 13297;
+        $this->gameID = 13291;
+        $this->otherGame = 13297;
 
-  }
+    }
 
-  public function tearDown() {
-    Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
-  protected function getTestAttributes() {
-    return array(
-      'yearpublished' => '2004',
-      'minplayers'    => '2',
-      'maxplayers'    => '8',
-      'playingtime'   => '60',
-      'name'          => 'Citadels:  The Dark City',
-      'description'   => 'An expansion for the German edition of the game. It included all the elements featured in the US and the 2nd French edition (new characters and districts), and some more stuff.<br/><br/>The Quarry allows you to build districts identical with districts you already have. The Imperial Treasury and the Fountain of Youth give you point bonuses at the end of the game. A bonus equal to the gold you own for the Imperial Treasury, a bonus equal to the number of purple buildings in your city for the Wish Fountain.<br/><br/>This expansion is now provided with the 3rd Edition of Citadels.<br/><br/>',
-      'image'         => 'http://cf.geekdo-images.com/images/pic73710.jpg',
-    );
-  }
+    protected function getTestAttributes()
+    {
+        return array(
+            'yearpublished' => '2004',
+            'minplayers' => '2',
+            'maxplayers' => '8',
+            'playingtime' => '60',
+            'name' => 'Citadels:  The Dark City',
+            'description' => 'An expansion for the German edition of the game. It included all the elements featured in the US and the 2nd French edition (new characters and districts), and some more stuff.<br/><br/>The Quarry allows you to build districts identical with districts you already have. The Imperial Treasury and the Fountain of Youth give you point bonuses at the end of the game. A bonus equal to the gold you own for the Imperial Treasury, a bonus equal to the number of purple buildings in your city for the Wish Fountain.<br/><br/>This expansion is now provided with the 3rd Edition of Citadels.<br/><br/>',
+            'image' => 'http://cf.geekdo-images.com/images/pic73710.jpg',
+        );
+    }
 
-  protected function getCollection() {
-    return array(
-      '6249' => 'Alhambra',
-      '137408' => 'Amerigo',
-      '124742' => 'Android: Netrunner',
-      '133500' => 'Android: Netrunner - Cyber Exodus',
-      '132005' => 'Android: Netrunner - Trace Amount',
-      '130806' => 'Android: Netrunner - What Lies Ahead',
-    );
-  }
+    protected function getCollection()
+    {
+        return array(
+            '6249' => 'Alhambra',
+            '137408' => 'Amerigo',
+            '124742' => 'Android: Netrunner',
+            '133500' => 'Android: Netrunner - Cyber Exodus',
+            '132005' => 'Android: Netrunner - Trace Amount',
+            '130806' => 'Android: Netrunner - What Lies Ahead',
+        );
+    }
 
-  protected function getTestGame() {
-    $game = new BoardGame;
-    $game->id = '13291';
-    $game->yearpublished = '2004';
-    $game->minplayers = '2';
-    $game->maxplayers = '8';
-    $game->playingtime = '60';
-    $game->name = 'Citadels:  The Dark City';
-    $game->description = 'An expansion for the German edition of the game. It included all the elements featured in the US and the 2nd French edition (new characters and districts), and some more stuff.\n\nThe Quarry allows you to build districts identical with districts you already have. The Imperial Treasury and the Fountain of Youth give you point bonuses at the end of the game. A bonus equal to the gold you own for the Imperial Treasury, a bonus equal to the number of purple buildings in your city for the Wish Fountain.\n\nThis expansion is now provided with the 3rd Edition of Citadels.\n\n';
-    $game->image = 'http://cf.geekdo-images.com/images/pic73710.jpg';
-    return $game;
-  }
+    protected function getTestGame()
+    {
+        $game = new BoardGame;
+        $game->id = '13291';
+        $game->yearpublished = '2004';
+        $game->minplayers = '2';
+        $game->maxplayers = '8';
+        $game->playingtime = '60';
+        $game->name = 'Citadels:  The Dark City';
+        $game->description = 'An expansion for the German edition of the game. It included all the elements featured in the US and the 2nd French edition (new characters and districts), and some more stuff.\n\nThe Quarry allows you to build districts identical with districts you already have. The Imperial Treasury and the Fountain of Youth give you point bonuses at the end of the game. A bonus equal to the gold you own for the Imperial Treasury, a bonus equal to the number of purple buildings in your city for the Wish Fountain.\n\nThis expansion is now provided with the 3rd Edition of Citadels.\n\n';
+        $game->image = 'http://cf.geekdo-images.com/images/pic73710.jpg';
+        $game->thumbnail = 'http://cf.geekdo-images.com/images/pic73710_t.jpg';
 
-  protected function getOtherGame() {
-    $game = new BoardGame;
-    $game->id = '13297';
-    $game->yearpublished = '2004';
-    $game->minplayers = '2';
-    $game->maxplayers = '5';
-    $game->playingtime = '45';
-    $game->name = 'Ticket to Ride: Mystery Train Expansion';
-    $game->description = "The Ticket to Ride: Mystery Train Expansion adds some cards to the Ticket deck. These additions aren't actual tickets, though. Instead, they are special cards that allow you to get bonus points at the end of the game, with the exception of one card that allows you to, in lieu of a turn, look through the entire deck of tickets and take any card you want.<br/><br/>One card lets you double the value of any ticket that you make (only for cards worth 10 or less), one gives you bonus points for making a cross-country route, one gives you bonus points for a west coast route and one gives you bonus points for connecting to the most cities.<br/><br/>This expansion is available as a free giveaway at Essen in October '04, and in the December '04 Game Trade Magazine. It should also be available to distributors, retailers, and through the daysofwonder web site when it's in print.<br/><br/>8 to 10 cards.<br/><br/>";
-    $game->image = 'http://cf.geekdo-images.com/images/pic56050.jpg';
-    return $game;
-  }
+        return $game;
+    }
 
-  public function testGetBoardGame() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/13291?versions=1')->andReturn(simplexml_load_file('tests/13291.xml'))->once();
+    protected function getOtherGame()
+    {
+        $game = new BoardGame;
+        $game->id = '13297';
+        $game->yearpublished = '2004';
+        $game->minplayers = '2';
+        $game->maxplayers = '5';
+        $game->playingtime = '45';
+        $game->name = 'Ticket to Ride: Mystery Train Expansion';
+        $game->description = "The Ticket to Ride: Mystery Train Expansion adds some cards to the Ticket deck. These additions aren't actual tickets, though. Instead, they are special cards that allow you to get bonus points at the end of the game, with the exception of one card that allows you to, in lieu of a turn, look through the entire deck of tickets and take any card you want.<br/><br/>One card lets you double the value of any ticket that you make (only for cards worth 10 or less), one gives you bonus points for making a cross-country route, one gives you bonus points for a west coast route and one gives you bonus points for connecting to the most cities.<br/><br/>This expansion is available as a free giveaway at Essen in October '04, and in the December '04 Game Trade Magazine. It should also be available to distributors, retailers, and through the daysofwonder web site when it's in print.<br/><br/>8 to 10 cards.<br/><br/>";
+        $game->image = 'http://cf.geekdo-images.com/images/pic56050.jpg';
+        $game->thumbnail = 'http://cf.geekdo-images.com/images/pic56050_t.jpg';
 
-    $api = new BoardGameGeekApi($mock);
-    $game = $api->getBoardGame($this->gameID);
+        return $game;
+    }
 
-    $this->assertEquals($this->getTestGame(), $game);
-  }
+    public function testGetBoardGame()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/13291?versions=1'
+        )->andReturn(simplexml_load_file('tests/13291.xml'))->once();
 
-  public function testGetMultipleGames() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/13291,13297?versions=1')->andReturn(simplexml_load_file('tests/13291,13297.xml'))->once();
+        $api = new BoardGameGeekApi($mock);
+        $game = $api->getBoardGame($this->gameID);
 
-    $api = new BoardGameGeekApi($mock);
-    $games = $api->getBoardGame(array($this->gameID, $this->otherGame));
+        $this->assertEquals($this->getTestGame(), $game);
+    }
 
-    $this->assertEquals(array($this->getTestGame(), $this->getOtherGame()), $games);
-  }
+    public function testGetMultipleGames()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/13291,13297?versions=1'
+        )->andReturn(simplexml_load_file('tests/13291,13297.xml'))->once();
 
-  public function testGetNonExistantGame() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/132911111111?versions=1')->andReturn(simplexml_load_file('tests/132911111111.xml'))->once();
+        $api = new BoardGameGeekApi($mock);
+        $games = $api->getBoardGame(array($this->gameID, $this->otherGame));
 
-    $api = new BoardGameGeekApi($mock);
-    $game = $api->getBoardGame(132911111111);
+        $this->assertEquals(array($this->getTestGame(), $this->getOtherGame()), $games);
+    }
 
-    $this->assertEquals(null, $game);
-  }
+    public function testGetNonExistantGame()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/132911111111?versions=1'
+        )->andReturn(simplexml_load_file('tests/132911111111.xml'))->once();
 
-  public function testGetMultipleNonExistantGames() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/132911111111,132911111112?versions=1')->andReturn(simplexml_load_file('tests/132911111111,132911111112.xml'))->once();
+        $api = new BoardGameGeekApi($mock);
+        $game = $api->getBoardGame(132911111111);
 
-    $api = new BoardGameGeekApi($mock);
-    $games = $api->getBoardGame(array(132911111111, 132911111112));
+        $this->assertEquals(null, $game);
+    }
 
-    $this->assertEquals(array(), $games);
-  }
+    public function testGetMultipleNonExistantGames()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/132911111111,132911111112?versions=1'
+        )->andReturn(simplexml_load_file('tests/132911111111,132911111112.xml'))->once();
 
-  public function testSearchBoardGameGeek() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels')->andReturn(simplexml_load_file('tests/search.xml'))->once();
+        $api = new BoardGameGeekApi($mock);
+        $games = $api->getBoardGame(array(132911111111, 132911111112));
 
-    $api = new BoardGameGeekApi($mock);
-    $games = $api->search('citadels');
+        $this->assertEquals(array(), $games);
+    }
 
-    $this->assertEquals(array('478' => 'Citadels', '13291' => 'Citadels:  The Dark City'), $games);
-  }
+    public function testSearchBoardGameGeek()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels')->andReturn(
+            simplexml_load_file('tests/search.xml')
+        )->once();
 
-  public function testSearchAndGet() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels')->andReturn(simplexml_load_file('tests/search.xml'))->once();
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/478,13291?versions=1')->andReturn(simplexml_load_file('tests/478,13291.xml'))->twice();
+        $api = new BoardGameGeekApi($mock);
+        $games = $api->search('citadels');
 
-    $api = new BoardGameGeekApi($mock);
-    $games = $api->searchAndGet('citadels');
+        $this->assertEquals(array('478' => 'Citadels', '13291' => 'Citadels:  The Dark City'), $games);
+    }
 
-    $this->assertEquals($api->getBoardGame(array(478,13291)), $games);
-  }
+    public function testSearchAndGet()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels')->andReturn(
+            simplexml_load_file('tests/search.xml')
+        )->once();
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/478,13291?versions=1'
+        )->andReturn(simplexml_load_file('tests/478,13291.xml'))->twice();
 
-  public function testGetUsersCollection() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed')->andReturn(simplexml_load_file('tests/drugcrazed.xml'))->once();
+        $api = new BoardGameGeekApi($mock);
+        $games = $api->searchAndGet('citadels');
 
-    $api = new BoardGameGeekApi($mock);
-    $games = $api->collection('drugcrazed');
+        $this->assertEquals($api->getBoardGame(array(478, 13291)), $games);
+    }
 
-    $this->assertEquals($this->getCollection(), $games);
-  }
+    public function testGetUsersCollection()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed')->andReturn(
+            simplexml_load_file('tests/drugcrazed.xml')
+        )->once();
 
-  public function testGetUsersCollectionAsGames() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed')->andReturn(simplexml_load_file('tests/drugcrazed.xml'))->once();
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/6249,137408,124742,133500,132005,130806?versions=1')->andReturn(simplexml_load_file('tests/13291,13297.xml'))->once();
-    
-    $api = new BoardGameGeekAPI($mock);
-    $games = $api->getCollectionAsGames('drugcrazed');
+        $api = new BoardGameGeekApi($mock);
+        $games = $api->collection('drugcrazed');
 
-    $this->assertEquals(array($this->getTestGame(), $this->getOtherGame()), $games);
-  }
+        $this->assertEquals($this->getCollection(), $games);
+    }
 
-  public function testParameterCalls() {
-    $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed?own=1&preordered=1&')->twice()->andReturn(simplexml_load_file('tests/drugcrazed.xml'));
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/1?versions=1&foo=bar&')->once()->andReturn(simplexml_load_file('tests/13291.xml'));
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/1,2?versions=1&foo=bar&')->once()->andReturn(simplexml_load_file('tests/13291.xml'));
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/search?search=citadels&foo=bar&')->andReturn(simplexml_load_file('tests/search.xml'))->twice();
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/478,13291?versions=1&bar=foo&')->andReturn(simplexml_load_file('tests/478,13291.xml'))->once();
-    $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/boardgame/6249,137408,124742,133500,132005,130806?versions=1&foo=bar&')->andReturn(simplexml_load_file('tests/13291,13297.xml'))->once();
-    
-    $api = new BoardGameGeekAPI($mock);
+    public function testGetUsersCollectionAsGames()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with('http://www.boardgamegeek.com/xmlapi/collection/drugcrazed')->andReturn(
+            simplexml_load_file('tests/drugcrazed.xml')
+        )->once();
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/6249,137408,124742,133500,132005,130806?versions=1'
+        )->andReturn(simplexml_load_file('tests/13291,13297.xml'))->once();
 
-    //Test that we generate the right urls
-    $api->collection('drugcrazed', array('own' => '1', 'preordered' => '1'));
-    $api->getCollectionAsGames('drugcrazed', array('own' => '1', 'preordered' => '1'), array('foo' => 'bar'));
-    $api->getBoardGame(1, array('foo' => 'bar'));
-    $api->getBoardGame(array(1,2), array('foo' => 'bar'));
-    $api->search('citadels', array('foo' => 'bar'));
-    $api->searchAndGet('citadels', array('foo' => 'bar'), array('bar' => 'foo'));
-    
-  }
+        $api = new BoardGameGeekAPI($mock);
+        $games = $api->getCollectionAsGames('drugcrazed');
+
+        $this->assertEquals(array($this->getTestGame(), $this->getOtherGame()), $games);
+    }
+
+    public function testParameterCalls()
+    {
+        $mock = Mockery::mock('PatrickRose\BoardGameGeek\XMLReader');
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/collection/drugcrazed?own=1&preordered=1&'
+        )->twice()->andReturn(simplexml_load_file('tests/drugcrazed.xml'));
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/1?versions=1&foo=bar&'
+        )->once()->andReturn(simplexml_load_file('tests/13291.xml'));
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/1,2?versions=1&foo=bar&'
+        )->once()->andReturn(simplexml_load_file('tests/13291.xml'));
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/search?search=citadels&foo=bar&'
+        )->andReturn(simplexml_load_file('tests/search.xml'))->twice();
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/478,13291?versions=1&bar=foo&'
+        )->andReturn(simplexml_load_file('tests/478,13291.xml'))->once();
+        $mock->shouldReceive('parse')->with(
+            'http://www.boardgamegeek.com/xmlapi/boardgame/6249,137408,124742,133500,132005,130806?versions=1&foo=bar&'
+        )->andReturn(simplexml_load_file('tests/13291,13297.xml'))->once();
+
+        $api = new BoardGameGeekAPI($mock);
+
+        //Test that we generate the right urls
+        $api->collection('drugcrazed', array('own' => '1', 'preordered' => '1'));
+        $api->getCollectionAsGames('drugcrazed', array('own' => '1', 'preordered' => '1'), array('foo' => 'bar'));
+        $api->getBoardGame(1, array('foo' => 'bar'));
+        $api->getBoardGame(array(1, 2), array('foo' => 'bar'));
+        $api->search('citadels', array('foo' => 'bar'));
+        $api->searchAndGet('citadels', array('foo' => 'bar'), array('bar' => 'foo'));
+
+    }
 
 }
 
