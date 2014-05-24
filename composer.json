@@ -13,12 +13,12 @@
 	"illuminate/support": "~4"
     },
     "require-dev": {
-	"mockery/mockery": "dev-master"
+	"mockery/mockery": "*"
     },
     "autoload": {
         "psr-0": {
             "PatrickRose\\BoardGameGeek": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
